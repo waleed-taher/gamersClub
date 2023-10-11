@@ -1,3 +1,4 @@
+import { OptimizeImage } from "@/lib/utils/OptimizeImage";
 import { GameProps } from "@/lib/utils/typeProps";
 
 const GameCard = ({
@@ -12,7 +13,7 @@ const GameCard = ({
     <div className="card w-96 shadow-xl bg-base-100">
       <div className="w-96 h-96">
         <img
-          src={background_image}
+          src={OptimizeImage(background_image)}
           alt={slug}
           className="w-full h-full object-cover"
         />
