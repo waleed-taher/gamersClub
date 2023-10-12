@@ -8,15 +8,19 @@ const ToggleButton = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div>
+    <div className="">
       {theme === "dark" ? (
-        <div className="flex-1 lg:flex-none" onClick={() => setTheme("light")}>
-          <BsSun className="h-8 w-8 cursor-pointer text-green-400 sm:h-10 sm:w-10" />
-        </div>
+        <BsSun
+          size={32}
+          className=" text-white px-2 py-2 w-full h-full rounded-full cursor-pointer transition-all delay-75 bg-[#1a1a1a]"
+          onClick={() => setTheme("light")}
+        />
       ) : (
-        <div className="flex-1 lg:flex-none" onClick={() => setTheme("dark")}>
-          <BiMoon className="h-8 w-8 cursor-pointer text-green-400 sm:h-8 sm:w-8" />
-        </div>
+        <BiMoon
+          size={32}
+          className=" text-white px-2 py-2 w-full h-full rounded-full cursor-pointer transition-all delay-75 bg-[#1a1a1a]"
+          onClick={() => setTheme("dark")}
+        />
       )}
     </div>
   );

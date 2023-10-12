@@ -5,8 +5,8 @@ import ToggleButton from "../NavbarComponents/ToggleButton";
 
 const Navbar = () => {
   return (
-    <header className="text-black dark:text-white">
-      <div>
+    <header className="flex justify-between items-center mx-10 py-4 lg:gap-40 max-lg:gap-4 max-lg:mx-4 ">
+      <div className="">
         <Image src={APP_IMAGES.logo} alt="Rawg Logo" width={40} height={40} />
       </div>
 
