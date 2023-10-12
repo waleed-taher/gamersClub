@@ -1,31 +1,42 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import GenresList from "./component/genreList";
+import { useSearch } from "@/provider/SearchContext";
 import { GenreProps } from "@/lib/utils/typeProps";
 
-const getAllGenres = async () => {
-  try {
-    const data = await fetch("http://localhost:3000/api/getAllGenres", {
-      cache: "force-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+const Genres: React.FC = () => {
+  const [genre, setGenre] = useState<GenreProps[]>([]);
+  const { setGenreTerm } = useSearch();
 
-    return data.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+  const handleGenreSelect = (selectedGenre: GenreProps) => {
+    setGenreTerm(selectedGenre.name.replace(" ", "-").toLowerCase());
+  };
 
-const Genres = async () => {
-  const { data: genres } = await getAllGenres();
+  const onDataFetched = (data: GenreProps[]) => {
+    setGenre(data);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/getAllGenres", {
+          cache: "force-cache",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        onDataFetched(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
-      {genres.map((genre: GenreProps) => (
-        <button key={genre.id} className="flex flex-col w-full">
-          <span className="my-2 px-2 py-2 bg-[#ededed] rounded-lg hover:bg-purple-700 w-full hover:text-white">
-            {genre.name}
-          </span>
-        </button>
-      ))}
+      <GenresList genres={genre} onGenreSelect={handleGenreSelect} />
     </div>
   );
 };
